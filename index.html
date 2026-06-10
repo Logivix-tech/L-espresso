@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'espresso Café</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* ================= VIDEO BACKGROUND ================= */
+.video-bg{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-3;
+    overflow:hidden;
+}
+
+.video-bg iframe{
+    width:100vw;
+    height:100vh;
+    pointer-events:none;
+    transform:scale(1.3);
+}
+
+/* dark overlay for video */
+.video-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.55);
+    z-index:-2;
+}
+
+/* ================= NAV ================= */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 10%;
+    position:fixed;
+    width:100%;
+    top:0;
+    left:0;
+    z-index:10;
+    transition:0.3s;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:25px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+}
+
+nav ul li a:hover{
+    color:#c48b3a;
+}
+
+.scrolled{
+    background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(10px);
+}
+
+/* ================= HERO ================= */
+header{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:20px;
+    max-width:700px;
+    margin-bottom:25px;
+    color:#f1f1f1;
+}
+
+.btn{
+    background:#c48b3a;
+    color:white;
+    padding:14px 32px;
+    border-radius:30px;
+    text-decoration:none;
+    font-size:18px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#a56e23;
+}
+
+/* ================= WHY SECTION (FIXED PROPERLY) ================= */
+.why{
+    position:relative;
+    padding:100px 10%;
+    background:url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1600") center/cover no-repeat;
+}
+
+.why::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+}
+
+.section-title{
+    text-align:center;
+    font-size:40px;
+    margin-bottom:40px;
+    color:rgb(255, 255, 255);
+    position:relative;
+    z-index:2;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:30px;
+    position:relative;
+    z-index:2;
+}
+
+/* unified card style (NO DUPLICATES) */
+.card{
+    background:rgba(255,255,255,0.85);
+    padding:35px 25px;
+    border-radius:18px;
+    text-align:center;
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+/* icon */
+.icon{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+/* text */
+.card h3{
+    margin-bottom:10px;
+    color:#222;
+}
+
+.card p{
+    font-size:15px;
+    color:#555;
+    line-height:1.6;
+}
+/*======menu section*/
+.menu-section{
+    position:relative;
+    padding:100px 10%;
+    background:url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600") center/cover no-repeat;
+    color:white;
+    overflow:hidden;
+}
+
+/* DARK OVERLAY */
+.menu-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    z-index:1;
+}
+
+/* CONTENT ABOVE OVERLAY */
+.menu-content{
+    position:relative;
+    z-index:2;
+}
+
+/* GRID */
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+/* CARD */
+.menu-card{
+    background:rgba(255,255,255,0.95);
+    border-radius:18px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+.menu-card:hover{
+    transform:translateY(-10px);
+}
+
+/* IMAGE */
+.menu-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+/* TEXT */
+.menu-card h3{
+    margin-top:15px;
+    color:#222;
+}
+
+.menu-card p{
+    font-size:14px;
+    color:#666;
+    padding:0 10px;
+}
+
+/* PRICE */
+.price{
+    display:block;
+    margin:15px 0 20px;
+    color:#c48b3a;
+    font-weight:bold;
+    font-size:18px;
+}
+
+/* BUTTON */
+.menu-action{
+    text-align:center;
+    margin-top:40px;
+}
+
+.menu-btn{
+    display:inline-block;
+    background:#c48b3a;
+    color:white;
+    padding:14px 30px;
+    border-radius:30px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.menu-btn:hover{
+    background:#a56e23;
+    transform:translateY(-3px);
+}
+/*location&maps */
+.location-section{
+    position:relative;
+    padding:100px 10%;
+    background:url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=1600") center/cover no-repeat;
+    color:white;
+}
+
+/* dark overlay */
+.location-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+}
+
+/* content above overlay */
+.location-content{
+    position:relative;
+    z-index:2;
+}
+
+/* grid */
+.location-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    gap:30px;
+    margin-top:40px;
+}
+
+/* cards */
+.info-card{
+    background:rgba(255,255,255,0.92);
+    padding:30px;
+    border-radius:18px;
+    color:#222;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* hours */
+.hours p{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+.hours span{
+    color:#666;
+}
+
+/* address */
+.address{
+    margin:15px 0;
+    color:#555;
+    line-height:1.5;
+}
+
+/* map */
+.map iframe{
+    width:100%;
+    height:220px;
+    border:0;
+    border-radius:12px;
+}
+/* ================= GALLERY ================= */
+section{
+    padding:80px 10%;
+    background:#f8f5f2;
+    color:#333;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.gallery img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+/* ================= FOOTER ================= */
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+/* ================= GLOBAL SAFETY ================= */
+img{
+    max-width:100%;
+    display:block;
+}
+
+.section-title{
+    text-align:center;
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 1024px){
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    nav{
+        padding:20px 6%;
+    }
+
+    .menu-grid,
+    .features,
+    .location-grid{
+        grid-template-columns:repeat(2, 1fr);
+    }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px){
+
+    /* HERO */
+    .hero h1{
+        font-size:36px;
+        line-height:1.2;
+    }
+
+    .hero p{
+        font-size:16px;
+        padding:0 10px;
+    }
+
+    /* NAV */
+    nav{
+        flex-direction:column;
+        gap:10px;
+        padding:15px;
+        background:rgba(0,0,0,0.6);
+        backdrop-filter:blur(10px);
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px;
+    }
+
+    /* GRIDS → SINGLE COLUMN */
+    .menu-grid,
+    .features,
+    .location-grid,
+    .gallery{
+        grid-template-columns:1fr;
+    }
+
+    /* CARDS */
+    .menu-card,
+    .info-card,
+    .card{
+        padding:20px;
+    }
+
+    /* MAP */
+    .map iframe{
+        height:180px;
+    }
+
+    /* VIDEO FIX */
+    .video-bg iframe{
+        transform:scale(1.6);
+    }
+}
+
+/* ================= SMALL PHONES ================= */
+@media (max-width: 480px){
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .btn{
+        padding:12px 22px;
+        font-size:14px;
+    }
+
+    nav ul{
+        display:none; /* clean simple mobile */
+    }
+
+    .section-title{
+        font-size:28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+<div class="video-bg">
+    <iframe
+        src="https://www.youtube.com/embed/t0jjpBSpdcA?autoplay=1&mute=1&loop=1&playlist=t0jjpBSpdcA&controls=0"
+        frameborder="0"
+        allow="autoplay; encrypted-media">
+    </iframe>
+</div>
+
+<div class="video-overlay"></div>
+
+<header>
+
+<nav>
+    <div class="logo">L'espresso</div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="hero">
+    <h1>Craft Coffee. Great Food.</h1>
+    <p>Experience specialty coffee, delicious meals, and a cozy atmosphere in Islamabad.</p>
+    <a href="reservation.html" class="btn">Reserve a Table</a>
+</div>
+
+</header>
+<section class="menu-section">
+
+    <div class="menu-overlay"></div>
+
+    <div class="menu-content">
+
+        <h2 class="section-title">Featured Menu</h2>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800">
+                <h3>Cappuccino</h3>
+                <p>Rich espresso with creamy foam</p>
+                <span class="price">Rs 450</span>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=800">
+                <h3>Latte</h3>
+                <p>Smooth coffee with milk blend</p>
+                <span class="price">Rs 500</span>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800">
+                <h3>Espresso</h3>
+                <p>Strong pure coffee shot</p>
+                <span class="price">Rs 350</span>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?w=800">
+                <h3>Cheesecake</h3>
+                <p>Soft creamy dessert slice</p>
+                <span class="price">Rs 600</span>
+            </div>
+
+        </div>
+
+        <div class="menu-action">
+            <a href="#" class="menu-btn">View Full Menu</a>
+        </div>
+
+    </div>
+
+</section>
+<section class="location-section">
+
+    <div class="location-overlay"></div>
+
+    <div class="location-content">
+
+        <h2 class="section-title">Visit Us</h2>
+
+        <div class="location-grid">
+
+            <!-- HOURS -->
+            <div class="info-card">
+                <h3>🕒 Opening Hours</h3>
+
+                <div class="hours">
+                    <p><span>Mon–Thu</span> <b>8AM – 12AM</b></p>
+                    <p><span>Friday</span> <b>8AM – 1AM</b></p>
+                    <p><span>Sat–Sun</span> <b>9AM – 1AM</b></p>
+                </div>
+            </div>
+
+            <!-- LOCATION -->
+            <div class="info-card">
+                <h3>📍 Location</h3>
+
+                <p class="address">
+                    L'espresso Café<br>
+                    F-11 Markaz, Islamabad
+                </p>
+
+                <div class="map">
+                    <iframe
+                        src="https://www.google.com/maps?q=F-11+Markaz+Islamabad&output=embed"
+                        loading="lazy">
+                    </iframe>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<section class="why">
+    <h2 class="section-title">Why Choose Us?</h2>
+
+    <div class="features">
+
+        <div class="card">
+            <div class="icon">☕</div>
+            <h3>Premium Coffee</h3>
+            <p>Freshly sourced beans, expertly roasted for rich flavor.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🍽</div>
+            <h3>Chef Crafted Food</h3>
+            <p>Every dish is prepared with high-quality ingredients.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏡</div>
+            <h3>Relaxed Ambience</h3>
+            <p>A perfect place for study, meetings, and relaxation.</p>
+        </div>
+
+    </div>
+</section>
+
+<section>
+<h2 class="section-title">Gallery</h2>
+
+<div class="gallery">
+    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800">
+    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800">
+</div>
+</section>
+
+<footer>
+<h3>L'espresso Café</h3>
+<p>Islamabad</p>
+</footer>
+
+<script>
+window.addEventListener("scroll", () => {
+    document.querySelector("nav")
+        .classList.toggle("scrolled", window.scrollY > 50);
+});
+</script>
+
+</body>
+</html>
