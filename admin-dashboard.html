@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - L'espresso</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f8;
+    color:#111;
+}
+
+/* TOP BAR */
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 25px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    position:sticky;
+    top:0;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:700;
+    font-family:Georgia, serif;
+}
+
+.logout{
+    background:#111;
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.logout:hover{
+    background:#333;
+}
+
+/* CONTAINER */
+.container{
+    padding:25px;
+}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    font-size:14px;
+    color:#666;
+}
+
+.card p{
+    font-size:24px;
+    margin-top:5px;
+    font-weight:bold;
+}
+
+/* SEARCH */
+.search{
+    margin-bottom:20px;
+}
+
+.search input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+th, td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+th{
+    background:#fafafa;
+}
+
+/* STATUS */
+.status{
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.pending{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.confirmed{
+    background:#d4edda;
+    color:#155724;
+}
+
+.completed{
+    background:#cce5ff;
+    color:#004085;
+}
+
+/* BUTTONS */
+.btn{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:12px;
+    margin-right:5px;
+}
+
+.view{
+    background:#eee;
+}
+
+.delete{
+    background:#ffdddd;
+    color:#a00;
+}
+
+.confirm{
+    background:#d4edda;
+    color:#155724;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="logo">L'espresso Admin</div>
+    <a href="admin-login.html" class="logout">Logout</a>
+</div>
+
+<div class="container">
+
+    <!-- STATS -->
+    <div class="stats">
+        <div class="card">
+            <h3>Total Reservations</h3>
+            <p>12</p>
+        </div>
+
+        <div class="card">
+            <h3>Pending</h3>
+            <p>5</p>
+        </div>
+
+        <div class="card">
+            <h3>Confirmed</h3>
+            <p>4</p>
+        </div>
+
+        <div class="card">
+            <h3>Completed</h3>
+            <p>3</p>
+        </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search">
+        <input type="text" placeholder="Search reservations...">
+    </div>
+
+    <!-- TABLE -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Guests</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>1</td>
+                <td>Ali Khan</td>
+                <td>03001234567</td>
+                <td>2026-06-20</td>
+                <td>19:00</td>
+                <td>4</td>
+                <td><span class="status pending">Pending</span></td>
+                <td>
+                    <button class="btn view">View</button>
+                    <button class="btn confirm">Confirm</button>
+                    <button class="btn delete">Delete</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Ahmed</td>
+                <td>03111234567</td>
+                <td>2026-06-21</td>
+                <td>20:00</td>
+                <td>2</td>
+                <td><span class="status confirmed">Confirmed</span></td>
+                <td>
+                    <button class="btn view">View</button>
+                    <button class="btn delete">Delete</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>Sara</td>
+                <td>03211234567</td>
+                <td>2026-06-22</td>
+                <td>18:30</td>
+                <td>3</td>
+                <td><span class="status completed">Completed</span></td>
+                <td>
+                    <button class="btn view">View</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
